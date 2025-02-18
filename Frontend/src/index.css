@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+::-moz-selection { /* Code for Firefox */
+    color: #1e1e1e;
+    background: #00ffe7;
+  }
+  
+  ::selection {
+    color: #1e1e1e;
+    background: #00ffe7;
+  }
