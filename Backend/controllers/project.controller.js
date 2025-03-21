@@ -115,3 +115,44 @@ export const getProjectByIdController = async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 };
+
+
+export const updateFileTree = async (req, res) => {
+    try {
+        const { projectId } = req.params;
+        const { fileTree } = req.body;
+
+        const project = await Project.findById(projectId);
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        // Update file tree
+        project.fileTree = fileTree;
+        await project.save();
+
+        return res.status(200).json({ 
+            message: 'File tree updated successfully',
+            fileTree: project.fileTree 
+        });
+    } catch (error) {
+        console.error('Error updating file tree:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+export const getFileTree = async (req, res) => {
+    try {
+        const { projectId } = req.params;
+
+        const project = await Project.findById(projectId);
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        return res.status(200).json({ fileTree: project.fileTree });
+    } catch (error) {
+        console.error('Error getting file tree:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};

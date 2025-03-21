@@ -5,7 +5,9 @@ import {
     addUserController,
     createProjectController,
     getAllUserProjectsController,
+    getFileTree,
     getProjectByIdController,
+    updateFileTree,
 } from "../controllers/project.controller.js";
 
 const router = Router();
@@ -36,5 +38,8 @@ router.put(
 );
 
 router.get("/get-project/:projectId", authUser, getProjectByIdController);
+
+router.put('/:projectId/files', authUser, updateFileTree);
+router.get('/:projectId/files', authUser, getFileTree);
 
 export default router;

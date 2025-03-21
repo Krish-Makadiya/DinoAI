@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.3",
+    "@uiw/react-textarea-code-editor": "^3.1.0",
+    "@webcontainer/api": "^1.5.1-internal.9",
     "axios": "^1.7.9",
     "highlight.js": "^11.11.1",
     "markdown-to-jsx": "^7.7.3",
+    "prismjs": "^1.29.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",

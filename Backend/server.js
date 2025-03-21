@@ -67,24 +67,32 @@ io.on("connection", (socket) => {
             try {
                 const message = data.message;
                 const projectId = socket.project._id;
-        
+
                 // Emit to everyone EXCEPT sender
-                socket.broadcast.to(socket.roomId).emit("project-message", data);
-        
+                socket.broadcast
+                    .to(socket.roomId)
+                    .emit("project-message", data);
+
                 if (message.includes("@ai")) {
                     const prompt = message.replace("@ai", "").trim();
-                    const result = await generatePrompt(prompt, projectId, data.conversationHistory);
-        
+                    const result = await generatePrompt(
+                        prompt,
+                        projectId,
+                        data.conversationHistory
+                    );
+
                     // Emit AI response to everyone INCLUDING sender
                     io.to(socket.roomId).emit("project-message", {
-                        message: result,
+                        result, 
                         sender: { _id: "ai", email: "AI Assistant" },
                         timestamp: new Date().toISOString(),
                     });
                 }
             } catch (error) {
                 console.error("AI message error:", error);
-                socket.emit("error", { message: "Failed to process AI request" });
+                socket.emit("error", {
+                    message: "Failed to process AI request",
+                });
             }
         });
     }
